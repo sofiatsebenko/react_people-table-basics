@@ -1,6 +1,7 @@
-import { Link, useParams } from 'react-router-dom';
-import { Person as PersonType } from '../types';
+import { useParams } from 'react-router-dom';
 import cn from 'classnames';
+import { Person as PersonType } from '../types';
+import { PersonLink } from './PersonLink';
 
 type Props = {
   person: PersonType;
@@ -21,15 +22,7 @@ export const Person = ({ person, people }: Props) => {
       })}
     >
       <td>
-        <Link
-          className={cn({
-            'has-text-danger': person.sex === 'f',
-            'has-text-info': person.sex === 'm',
-          })}
-          to={`/people/${person.slug}`}
-        >
-          {person.name}
-        </Link>
+        <PersonLink person={person} />
       </td>
 
       <td>{person.sex}</td>
@@ -38,15 +31,7 @@ export const Person = ({ person, people }: Props) => {
 
       <td>
         {mother ? (
-          <Link
-            className={cn({
-              'has-text-danger': mother.sex === 'f',
-              'has-text-info': mother.sex === 'm',
-            })}
-            to={`/people/${mother.slug}`}
-          >
-            {person.motherName}
-          </Link>
+          <PersonLink person={mother} />
         ) : (
           person.motherName || '-'
         )}
@@ -54,15 +39,7 @@ export const Person = ({ person, people }: Props) => {
 
       <td>
         {father ? (
-          <Link
-            className={cn({
-              'has-text-danger': father.sex === 'f',
-              'has-text-info': father.sex === 'm',
-            })}
-            to={`/people/${father.slug}`}
-          >
-            {person.fatherName}
-          </Link>
+          <PersonLink person={father} />
         ) : (
           person.fatherName || '-'
         )}
